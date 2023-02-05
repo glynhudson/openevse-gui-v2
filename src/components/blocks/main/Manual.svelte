@@ -20,8 +20,6 @@
 	import ToggleButtonIcon 		from "./../../ui/ToggleButtonIcon.svelte"
 	import Slider 					from "./../../ui/SliderForm.svelte"
 	import ButtonManual 			from "../../ui/ButtonManual.svelte"
-	import SelectTimeLmt 			from "../../ui/SelectTimeLmt.svelte"
-	import SelectChargeLmt			from "../../ui/SelectChargeLmt.svelte"
 	import RemovableTag 			from "../../ui/RemovableTag.svelte"
 
 	let setamp_tag
@@ -283,7 +281,7 @@ $: set_uistates_divertmode($status_store.divertmode)
 				action={() => setShaper(!$uistates_store.shaper)} disabled={waiting} />
 		</div>
 		<Borders grow>
-			<div class="mb-3" style="width: 280px">
+			<div class="mb-3" style="width: 260px">
 				<Slider 
 					icon="fa6-solid:gauge-high" 
 					tooltip={$_("charge-rate-ttip")} 

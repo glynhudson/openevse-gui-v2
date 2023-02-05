@@ -40,12 +40,10 @@
 	let modal = false
 	let butn_set_state = ""
 	let butn_del_state = ""
-	let butn_auto_release_inst
+	// let butn_auto_release_inst
 
 	let time_h = 0
 	let time_m = 0
-	let time_pickr_box = false
-	let time_pickr_display = ""
 
 	let getLimit = async () => {
 		let res = await serialQueue.add(()=>limit_store.download())
@@ -96,10 +94,28 @@
 		limit.value = val * 1000
 	}
 
-	let toggleAutoRls = () => {
-		limit.auto_release = !limit.auto_release
-		if (butn_auto_release_inst)
-			butn_auto_release_inst.blur() 
+	// let toggleAutoRls = () => {
+	// 	limit.auto_release = !limit.auto_release
+	// 	if (butn_auto_release_inst)
+	// 		butn_auto_release_inst.blur()
+	// }
+
+	let countdownValue = (val,type) => {
+		let ctval
+		switch (type) {
+			case "time":
+				ctval = val - ($status_store.elapsed/60)
+				break
+			case "energy": 
+				ctval = val - $status_store.session_energy
+				break;
+			case "soc":
+				ctval = val - $status_store.battery_level
+				break
+			case "range":
+				ctval = val - $status_store.battery_range
+		}
+		return ctval>=0?ctval:0
 	}
 
 	onMount( () => {
@@ -124,11 +140,12 @@
 			}
 		})
 	})
+
 	
 </script>
 <style>
 	.content {
-		width: 280px;
+		width: 260px;
 		height: fit-content;
 	}
 	.modal-content {
@@ -149,22 +166,16 @@
 				CHARGE LIMIT
 			</div>
 			{#if $limit_store.type != "none"}
-			<div class="mb-2 is-flex is-align-items-center">
-				<div class="{$limit_store.auto_release?"has-text-grey-light":"has-text-info"} is-size-4 mr-2 p-0">
-					{#if $limit_store.auto_release}
-					<iconify-icon inline icon={"material-symbols:lock-open"}></iconify-icon>
-					{:else}
-					<iconify-icon inline icon={"material-symbols:lock"}></iconify-icon>
-					{/if}
-				</div>
+			<div class="mb-2 is-flex is-align-items-center is-justify-content-center">
 				<LimitTag 
 					type={$limit_store.type} 
 					types={LimitTypes}
-					value={$limit_store.value} 
+					value={countdownValue($limit_store.value, $limit_store.type)} 
 					unit={LimitTypes[$limit_store.type].unit}
 					icon={LimitTypes[$limit_store.type].icon}
 					onClick={removeLimit}
 					state={butn_del_state}
+					auto_release={$limit_store.auto_release}
 					/>
 			</div>
 			{:else}
@@ -198,13 +209,8 @@
 				<SliderForm label="EV range"  bind:value={limit.value} min=0 max=600 unit={LimitTypes[limit.type].unit} step={10} />
 			</div>
 			{/if}
-			{#if limit.type!="none"}
+			<!-- {#if limit.type!="none"}
 			<div class="mt-2 is-size-7">
-				<!-- <Checkbox 
-					bind:checked={limit.auto_release}
-					label="This session only" 
-					tooltip="Keep limit after vehicle disconnection"
-				/> -->
 				<div class="is-size-7 {limit.auto_release?"is-grey-light":"is-info"}">
 					<ToggleButtonIcon
 					name={limit.auto_release?"Unlocked":"Locked"} 
@@ -219,7 +225,7 @@
 				</div>
 				
 			</div>
-			{/if}
+			{/if} -->
 			<div class="mt-2">
 				<Button 
 					name="Set limit" 
