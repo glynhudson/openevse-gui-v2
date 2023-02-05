@@ -1,4 +1,6 @@
 <script>
+	import Box from "./../../ui/Box.svelte";
+	import Checkbox from "./../../ui/Checkbox.svelte";
 	import Borders from "./../../ui/Borders.svelte";
 	import { _ } 			from 'svelte-i18n'
 	import BoxModal 		from "./../../ui/BoxModal.svelte";
@@ -12,6 +14,15 @@
 	export let is_opened = false;
 	export let timer = null;
 	let timeout
+	let days = [
+		"monday",
+		"tuesday",
+		"wednesday",
+		"thursday",
+		"friday",
+		"saturday",
+		"sunday"
+	]
 
 	let saveTimerState = ""
 	let alert_visible = false
@@ -20,15 +31,7 @@
 	  id: null,
 	  state: "active",
 	  time: "00:00",
-	  days: [
-		"monday",
-		"tuesday",
-		"wednesday",
-		"thursday",
-		"friday",
-		"saturday",
-		"sunday"
-	  ]
+	  days: days
 	}
 
 	let selected_days = [true,true,true,true,true,true,true,true];
@@ -59,44 +62,17 @@
 	function days2table(sched) {
 		selected_days = [false,false,false,false,false,false,false,true];
 		for (let i = 0; i < sched.length; i++) {
-			switch (sched[i]) {
-				case "monday":
-					selected_days[0] = true;
-					break;
-				case "tuesday":
-					selected_days[1] = true;
-					break;
-				case "wednesday":
-					selected_days[2] = true;
-					break;
-				case "thursday":
-					selected_days[3] = true;
-					break;
-				case "friday":
-					selected_days[4] = true;
-					break;
-				case "saturday":
-					selected_days[5] = true;
-					break;
-				case "sunday":
-					selected_days[6] = true;
-					break;
-				default:
-					break;
-			}
+			if (sched[i] == days[i])
+				selected_days[i] = true
 		}
 		checkDays();
 	}
 
 	function table2days(sched) {
 		sched.days = [];
-		if (selected_days[0] == true) sched.days.push("monday");
-		if (selected_days[1] == true) sched.days.push("tuesday");
-		if (selected_days[2] == true) sched.days.push("wednesday");
-		if (selected_days[3] == true) sched.days.push("thursday");
-		if (selected_days[4] == true) sched.days.push("friday");
-		if (selected_days[5] == true) sched.days.push("saturday");
-		if (selected_days[6] == true) sched.days.push("sunday");
+		for (let i = 0; i < selected_days.length; i++) {
+			if (selected_days[i] == true) sched.days.push(days[i]);
+		}
 		$schedule_store = $schedule_store; 
 	}
 
@@ -158,52 +134,37 @@
 	.checkbox {
 		accent-color: #38a4b6;
 	}
+	.days {
+		max-width: 400px;
+	}
 </style>
 
 <Modal bind:is_opened>
 
 	<AlertBox title={$_("error")}  body="You must select at least one day" bind:visible={alert_visible} />
-	<BoxModal title={timer == null?$_("scheduler-newtimer"): $_("scheduler-timer")+" #" + $schedule_store[timer].id} >
-		<div class="mt-2 is-size-6 is-flex is-justify-content-center">	
-			<Borders>			
-				<label class="checkbox">
-					<input id="d_mon" type="checkbox" bind:checked={selected_days[0]} on:change={checkDays} >
-					<span class="is-capitalized">{$_("days.monday").substr(0,3)}</span>
-				</label>
-				<label class="checkbox">
-					<input id="d_tue" type="checkbox" bind:checked={selected_days[1]} on:change={checkDays}>
-					<span class="is-capitalized">{$_("days.tuesday").substr(0,3)}</span>
-				</label>
-				<label class="checkbox">
-					<input id="d_wed" type="checkbox" bind:checked={selected_days[2]} on:change={checkDays}>
-					<span class="is-capitalized">{$_("days.wednesday").substr(0,3)}</span>
-				</label>
-				<label class="checkbox">
-					<input id="d_thu" type="checkbox" bind:checked={selected_days[3]} on:change={checkDays}>
-					<span class="is-capitalized">{$_("days.thursday").substr(0,3)}</span>
-				</label>
-				<label class="checkbox">
-					<input id="d_fri" type="checkbox" bind:checked={selected_days[4]} on:change={checkDays}>
-					<span class="is-capitalized">{$_("days.friday").substr(0,3)}</span>
-				</label>
-				<label class="checkbox">
-					<input id="d_sat" type="checkbox"bind:checked={selected_days[5]} on:change={checkDays}>
-					<span class="is-capitalized">{$_("days.saturday").substr(0,3)}</span>
-				</label>
-				<label class="checkbox">
-					<input id="d_sun" type="checkbox" bind:checked={selected_days[6]} on:change={checkDays}>
-					<span class="is-capitalized">{$_("days.sunday").substr(0,3)}</span>
-				</label>
-				<div>
-					<label class="checkbox has-text-weight-semibold">
-						<input id="d_all" type="checkbox" bind:checked={selected_days[7]} on:change={() => {checkAll(selected_days[7])}}>
-						{#if !selected_days[7]}
-						{$_("scheduler-checkall")}
-						{:else}
-						{$_("scheduler-uncheckall")}
-						{/if}
-					</label>
-				</div>	
+	<Box title={timer == null?$_("scheduler-newtimer"): $_("scheduler-timer")+" #" + $schedule_store[timer].id} >
+		<div class="mt-2 is-size-6">	
+			<Borders grow>
+				<div class="is-flex is-justify-content-center">
+					<div class="days is-flex-shrink-0 is-flex-grow-1 is-flex is-justify-content-space-evenly">
+						{#each days as day,i }
+						<div class="mx-1 is-inline-block">
+							<Checkbox 
+							label={$_("days." + day).substr(0,3)}  
+							bind:checked={selected_days[i]}  
+							onChange={checkDays}
+							tooltip={$_("days" + day)}	
+						/>
+						</div>
+						{/each}
+					</div>
+				</div>
+				<Checkbox 
+					label={selected_days[7]?$_("scheduler-checkall"):$_("scheduler-uncheckall")}
+					bind:checked={selected_days[7]}
+					onChange={() => {checkAll(selected_days[7])}}
+					tooltip={null}
+				/>
 			</Borders>
 		</div>
 
@@ -244,5 +205,5 @@
 			<Button name={$_("save")} color="is-info" butn_submit={saveTimer} state={saveTimerState}/>
 			<Button name={$_("close")} color="is-danger" butn_submit={()=>is_opened = false} />
 		</div>
-	</BoxModal>
+	</Box>
 </Modal>
