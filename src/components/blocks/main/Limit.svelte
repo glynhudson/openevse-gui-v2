@@ -165,8 +165,8 @@
 
 <Borders grow>
 	<div class="content">
-		<div class="is-flex is-justify-content-center is-flex-direction-column" >
-			<div class="is-size-6 has-text-info has-text-weight-bold mb-2">
+		<div class="is-flex is-justify-content-center is-flex-direction-column mb-2" >
+			<div class="is-size-6 has-text-info has-text-weight-bold mb-4">
 				{$_("limits.limit")}
 			</div>
 			{#if $limit_store.type != "none"}
