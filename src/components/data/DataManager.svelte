@@ -120,9 +120,14 @@
 					return res
 				}
 					
-				else return false
+				else {
+					return false
+				} 
 			}
-			else $uistates_store.limit_version = version
+			else {
+				limit_store.reset()
+				$uistates_store.limit_version = version
+			}
 		}
 		else return true
 		

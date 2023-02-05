@@ -22,7 +22,7 @@
 		time:   {name: "Time",   unit: "", 	  icon: "fa6-solid:hourglass-half"},
 		energy: {name: "Energy", unit: "kWh", icon: "fa6-solid:bolt"},
 		soc:    {name: "Battery",unit: "%",   icon: "material-symbols:battery-5-bar-sharp", disabled: true},
-		range:  {name: "Range",  unit: "km",  icon: "material-symbols:width", disabled: true}
+		range:  {name: "Range",  unit: "km",  icon: "oi:resize-width", disabled: true}
 	}
 
 	const hoursItems = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]

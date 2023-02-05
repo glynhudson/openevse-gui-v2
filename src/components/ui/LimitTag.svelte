@@ -15,7 +15,7 @@
 				let h = Math.round(val/60)
 				let m = val % 60
 				let ret = h?h+"h":""
-				ret += m?!h?m+"mn":m:""
+				ret += m?!h?m.toString().padStart(2,'0') +"mn":m.toString().padStart(2,'0'):""
 				return ret
 			case 'energy':
 				return Math.round(val/1000)
@@ -49,7 +49,7 @@
 		</div>
 	</div> -->
 	<div class="tag is-medium is-info has-text-weight-bold is-capitalized">
-			<iconify-icon inline class="has-text-white" icon={icon} height="14px"></iconify-icon>
+			<iconify-icon inline class="has-text-white" icon={icon}></iconify-icon>
 			<span class="ml-2">{types[type].name}</span>		
 	</div>
 	<span class="tag is-medium val has-text-weight-bold is-info">
