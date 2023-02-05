@@ -84,6 +84,8 @@
 
 	let selectType = () => {
 		limit.value = 0
+		time_h = 0
+		time_m = 0
 	}
 
 	let setTimeInput = () => {
