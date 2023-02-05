@@ -13,7 +13,7 @@ function togglefocus() {
 </style>
 
 <div class="">
-	<div class="control-label is-capitalized has-text-grey has-text-weight-semibold">{label}</div>
+	<div class="control-label is-capitalized has-text-weight-semibold">{label}</div>
 	<div class=" is-inline-block">
 		<label class="b-checkbox checkbox m-0 p-0">
 			<input 

@@ -62,8 +62,31 @@
 	function days2table(sched) {
 		selected_days = [false,false,false,false,false,false,false,true];
 		for (let i = 0; i < sched.length; i++) {
-			if (sched[i] == days[i])
-				selected_days[i] = true
+			switch (sched[i]) {
+				case "monday":
+					selected_days[0] = true;
+					break;
+				case "tuesday":
+					selected_days[1] = true;
+					break;
+				case "wednesday":
+					selected_days[2] = true;
+					break;
+				case "thursday":
+					selected_days[3] = true;
+					break;
+				case "friday":
+					selected_days[4] = true;
+					break;
+				case "saturday":
+					selected_days[5] = true;
+					break;
+				case "sunday":
+					selected_days[6] = true;
+					break;
+				default:
+					break;
+			}
 		}
 		checkDays();
 	}
@@ -131,9 +154,6 @@
 
 </script>	
 <style>
-	.checkbox {
-		accent-color: #38a4b6;
-	}
 	.days {
 		max-width: 400px;
 	}
