@@ -139,7 +139,7 @@
 	}
 </style>
 
-<Modal bind:is_opened>
+<Modal fit bind:is_opened>
 
 	<AlertBox title={$_("error")}  body="You must select at least one day" bind:visible={alert_visible} />
 	<Box title={timer == null?$_("scheduler-newtimer"): $_("scheduler-timer")+" #" + $schedule_store[timer].id} >
@@ -160,7 +160,7 @@
 					</div>
 				</div>
 				<Checkbox 
-					label={selected_days[7]?$_("scheduler-checkall"):$_("scheduler-uncheckall")}
+					label={selected_days[7]?$_("scheduler-uncheckall"):$_("scheduler-checkall")}
 					bind:checked={selected_days[7]}
 					onChange={() => {checkAll(selected_days[7])}}
 					tooltip={null}

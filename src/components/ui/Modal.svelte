@@ -51,13 +51,10 @@
 		margin-right: auto;
 		overflow: hidden;
 		/* z-index: 8; */
-		max-width: 100%;
+		max-width: 90%;
 	}
 	.modal-content.fit {
 		width:fit-content;
-	}
-	.modal-background {
-		/* z-index: 8; */
 	}
 </style>
 <div class="modal" class:is-hidden={!is_opened} class:is-active={is_opened}>
