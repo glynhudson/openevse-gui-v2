@@ -123,7 +123,7 @@
 		height: fit-content;
 	}
 	.modal-content {
-		max-width: 420px;
+		max-width: 500px;
 		overflow: hidden;
 	}
 	.slider {
@@ -160,37 +160,35 @@
 </Borders>
 
 <Modal canClose={true} bind:is_opened={modal} fit>
-	<div class="modal-content">
-		<Box title="Charge Limit">
-			<div class="is-flex is-flex-direction-column is-align-items-center is-justify-content-center mb-4">
-				<Select bind:value={limit.type} items={typeItems} onChange={selectType} />
-				{#if limit.type=="time"}
-				<div class="is-inline-block">
-					<Select title="Hours" bind:value={time_h}  items={hoursItems} onChange={setTimeInput} />
-					<Select title="Minutes" bind:value={time_m}  items={minItems} onChange={setTimeInput} />
-				</div>
-				{:else if limit.type=="energy"}
-				<div class="mx-2 slider">
-					<SliderForm value={round(limit.value/1000,1)} min=0 max=100 unit={LimitTypes[limit.type].unit} step={1} onchange={setEnergyInput} />
-				</div>
-				{:else if limit.type=="soc"}
-				<div class="mx-2 slider">
-					<SliderForm bind:value={limit.value} min=0 max=100 unit={LimitTypes[limit.type].unit} step={1} />
-				</div>
-				{:else if limit.type=="range"}
-				<div class="mx-2 slider">
-					<SliderForm bind:value={limit.value} min=0 max=600 unit={LimitTypes[limit.type].unit} step={1} />
-				</div>
-				{/if}
-				{#if limit.type!="none"}
-				<div class="mt-2 is-size-7">
-					<Checkbox bind:checked={limit.auto_release} label="This session only"/>
-				</div>
-				{/if}
-				<div class="mt-2">
-					<Button name="Set limit" bind:state={butn_set_state} butn_submit={setLimit} disabled={!limit.value} />
-				</div>
+	<Box title="Charge Limit">
+		<div class="modal-content is-flex is-flex-direction-column is-align-items-center is-justify-content-center mb-4">
+			<Select bind:value={limit.type} items={typeItems} onChange={selectType} />
+			{#if limit.type=="time"}
+			<div class="is-inline-block">
+				<Select title="Hours" bind:value={time_h}  items={hoursItems} onChange={setTimeInput} />
+				<Select title="Minutes" bind:value={time_m}  items={minItems} onChange={setTimeInput} />
 			</div>
-		</Box>
-	</div>
+			{:else if limit.type=="energy"}
+			<div class="mx-2 slider">
+				<SliderForm label="kWh" value={round(limit.value/1000,1)} min=0 max=100 unit={LimitTypes[limit.type].unit} step={1} onchange={setEnergyInput} />
+			</div>
+			{:else if limit.type=="soc"}
+			<div class="mx-2 slider">
+				<SliderForm label="SOC" bind:value={limit.value} min=0 max=100 unit={LimitTypes[limit.type].unit} step={1} />
+			</div>
+			{:else if limit.type=="range"}
+			<div class="mx-2 slider">
+				<SliderForm bind:value={limit.value} min=0 max=600 unit={LimitTypes[limit.type].unit} step={10} />
+			</div>
+			{/if}
+			{#if limit.type!="none"}
+			<div class="mt-2 is-size-7">
+				<Checkbox bind:checked={limit.auto_release} label="This session only"/>
+			</div>
+			{/if}
+			<div class="mt-2">
+				<Button name="Set limit" bind:state={butn_set_state} butn_submit={setLimit} disabled={!limit.value} />
+			</div>
+		</div>
+	</Box>
 </Modal>

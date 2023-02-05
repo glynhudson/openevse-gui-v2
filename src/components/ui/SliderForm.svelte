@@ -31,14 +31,18 @@
 		margin-left: auto;
 		margin-right: auto;
 	}
+	.label {
+		position: relative;
+		top: 25px;
+	}
 
 </style>
 
-<div class="sliderform">
+<div class="sliderform is-unselectable" >
 	{#if label}
-	<div class="has-text-centered has-text-weight-bold has-text-info">{label}</div>
+	<div class="label has-text-weight-bold has-text-info">{label}</div>
 	{/if}
-	<div class="is-flex has-text-info is-flex-direction-row my-0 mx-0 py-0">
+	<div class="is-flex has-text-info is-flex-direction-row my-0 mx-0 py-0" >
 		{#if icon}
 		<iconify-icon class="mt-4 mr-3" icon={icon} style="font-size: 25px"></iconify-icon>
 
