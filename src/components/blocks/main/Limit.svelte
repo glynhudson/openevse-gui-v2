@@ -1,4 +1,6 @@
 <script>
+	import ToggleButtonIcon from "./../../ui/ToggleButtonIcon.svelte";
+	import IconButton from "./../../ui/IconButton.svelte";
 	import LimitTag from "./../../ui/LimitTag.svelte";
 	import { status_store } from "./../../../lib/stores/status.js";
 	import { serialQueue } 	from "./../../../lib/queue.js";
@@ -38,6 +40,7 @@
 	let modal = false
 	let butn_set_state = ""
 	let butn_del_state = ""
+	let butn_auto_release_inst
 
 	let time_h = 0
 	let time_m = 0
@@ -93,6 +96,12 @@
 		limit.value = val * 1000
 	}
 
+	let toggleAutoRls = () => {
+		limit.auto_release = !limit.auto_release
+		if (butn_auto_release_inst)
+			butn_auto_release_inst.blur() 
+	}
+
 	onMount( () => {
 		LimitTypes.range.unit = $config_store.mqtt_vehicle_range_miles?"miles":"km"
 		if ($status_store.limit)
@@ -119,6 +128,7 @@
 </script>
 <style>
 	.content {
+		width: 280px;
 		height: fit-content;
 	}
 	.modal-content {
@@ -139,7 +149,14 @@
 				CHARGE LIMIT
 			</div>
 			{#if $limit_store.type != "none"}
-			<div class="mb-2">
+			<div class="mb-2 is-flex is-align-items-center">
+				<div class="{$limit_store.auto_release?"has-text-grey-light":"has-text-info"} is-size-4 mr-2 p-0">
+					{#if $limit_store.auto_release}
+					<iconify-icon inline icon={"material-symbols:lock-open"}></iconify-icon>
+					{:else}
+					<iconify-icon inline icon={"material-symbols:lock"}></iconify-icon>
+					{/if}
+				</div>
 				<LimitTag 
 					type={$limit_store.type} 
 					types={LimitTypes}
@@ -183,11 +200,33 @@
 			{/if}
 			{#if limit.type!="none"}
 			<div class="mt-2 is-size-7">
-				<Checkbox bind:checked={limit.auto_release} label="This session only"/>
+				<!-- <Checkbox 
+					bind:checked={limit.auto_release}
+					label="This session only" 
+					tooltip="Keep limit after vehicle disconnection"
+				/> -->
+				<div class="is-size-7 {limit.auto_release?"is-grey-light":"is-info"}">
+					<ToggleButtonIcon
+					name={limit.auto_release?"Unlocked":"Locked"} 
+					icon="material-symbols:lock"
+					icon2="material-symbols:lock-open"
+					tooltip={!limit.auto_release?"Limit is kept for all charge sessions":"Limit is removed at EV disconnection"}
+					state={!limit.auto_release}
+					action={toggleAutoRls}
+					bind:button={butn_auto_release_inst}
+					size={26} size2={26} color="is-ghost" color2="is-ghost"
+				/>
+				</div>
+				
 			</div>
 			{/if}
 			<div class="mt-2">
-				<Button name="Set limit" bind:state={butn_set_state} butn_submit={setLimit} disabled={!limit.value} />
+				<Button 
+					name="Set limit" 
+					bind:state={butn_set_state} 
+					butn_submit={setLimit} 
+					disabled={!limit.value} 
+				/>
 			</div>
 		</div>
 	</Box>
