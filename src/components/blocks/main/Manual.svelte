@@ -258,6 +258,11 @@ $: set_uistates_divertmode($status_store.divertmode)
 
 </script>
 
+<style>
+	.chg-cur {
+
+	}
+</style>
 <Box title={$_("charge-title")} icon="fa6-solid:bolt">
 	<div class="is-flex is-align-items-center is-flex-direction-column">
 		<div class="has-text-centered mb-0 pb-0 has-text-weight-bold has-text-info mt-2 is-uppercase">{$_("charge-toggle")}</div>
@@ -281,7 +286,7 @@ $: set_uistates_divertmode($status_store.divertmode)
 				action={() => setShaper(!$uistates_store.shaper)} disabled={waiting} />
 		</div>
 		<Borders grow>
-			<div class="mb-3" style="width: 260px">
+			<div class="" style="width: 260px">
 				<Slider 
 					icon="fa6-solid:gauge-high" 
 					tooltip={$_("charge-rate-ttip")} 

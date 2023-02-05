@@ -1,5 +1,6 @@
 <script>
-	import Loader from "./Loader.svelte";
+	import { _ } 	from 'svelte-i18n'
+	import Loader 	from "./Loader.svelte";
 	export let icon
 	export let type
 	export let types = {}
@@ -12,7 +13,7 @@
 	let displayValue = (val) => {
 		switch (type) {
 			case 'time':
-				let h = Math.round(val/60)
+				let h = Math.trunc(val/60)
 				let m = val % 60
 				let ret = h?h+"h":""
 				ret += m?!h?m.toString().padStart(2,'0') +"mn":m.toString().padStart(2,'0'):""
@@ -53,7 +54,7 @@
 			<span class="ml-2">{types[type].name}</span>		
 	</div>
 	<span class="tag is-medium val has-text-weight-bold is-info">
-		{displayValue(value)}{unit}
+		{displayValue(value)}{unit} {$_("limits.left")}
 	</span>
 	{#if auto_release}
 		{#if state == ""}

@@ -9,6 +9,7 @@
 	"state": "State",
 	"save": "Save",
 	"update": "Update",
+	"new": "New",
 	"close": "Close",
 	"cancel": "Cancel",
 	"back": "Back",
@@ -112,6 +113,23 @@
 		"km": "km",
 		"miles": "miles",
 		"C": "°C"
+	},
+	"limits": {
+		"limit": "CHARGE LIMIT",
+		"set": "Set limit",
+		"hours": "hours",
+		"minutes": "minutes",
+		"input-energy": "Nb of kWh",
+		"input-soc": "Battery",
+		"input-range": "Range",
+		"left": "left",
+		"type": {
+			"none": "None",
+			"time": "Time",
+			"energy": "Energy",
+			"soc": "Battery",
+			"range": "Range"
+		}
 	},
 	"monitoring-title": "monitoring",
 	"monitoring-tab-data": "Data",
