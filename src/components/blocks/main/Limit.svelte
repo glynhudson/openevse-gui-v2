@@ -119,11 +119,11 @@
 </script>
 <style>
 	.content {
-		width: 260px;
 		height: fit-content;
 	}
 	.modal-content {
 		max-width: 500px;
+		min-width: 290px;
 		overflow: hidden;
 	}
 	.slider {
@@ -161,24 +161,24 @@
 
 <Modal canClose={true} bind:is_opened={modal} fit>
 	<Box title="Charge Limit">
-		<div class="modal-content is-flex is-flex-direction-column is-align-items-center is-justify-content-center mb-4">
+		<div class="modal-content m-0 is-flex is-flex-direction-column is-align-items-center  mb-4">
 			<Select bind:value={limit.type} items={typeItems} onChange={selectType} />
 			{#if limit.type=="time"}
-			<div class="is-inline-block">
+			<div class="is-inline-block mt-4 mb-1">
 				<Select title="Hours" bind:value={time_h}  items={hoursItems} onChange={setTimeInput} />
 				<Select title="Minutes" bind:value={time_m}  items={minItems} onChange={setTimeInput} />
 			</div>
 			{:else if limit.type=="energy"}
-			<div class="mx-2 slider">
-				<SliderForm label="kWh" value={round(limit.value/1000,1)} min=0 max=100 unit={LimitTypes[limit.type].unit} step={1} onchange={setEnergyInput} />
+			<div class="slider">
+				<SliderForm label="Nb of kWh" value={round(limit.value/1000,1)} min=0 max=100 unit={LimitTypes[limit.type].unit} step={1} onchange={setEnergyInput} />
 			</div>
 			{:else if limit.type=="soc"}
-			<div class="mx-2 slider">
-				<SliderForm label="SOC" bind:value={limit.value} min=0 max=100 unit={LimitTypes[limit.type].unit} step={1} />
+			<div class="slider">
+				<SliderForm label="EV battery" bind:value={limit.value} min=0 max=100 unit={LimitTypes[limit.type].unit} step={1} />
 			</div>
 			{:else if limit.type=="range"}
-			<div class="mx-2 slider">
-				<SliderForm bind:value={limit.value} min=0 max=600 unit={LimitTypes[limit.type].unit} step={10} />
+			<div class="slider">
+				<SliderForm label="EV range"  bind:value={limit.value} min=0 max=600 unit={LimitTypes[limit.type].unit} step={10} />
 			</div>
 			{/if}
 			{#if limit.type!="none"}
