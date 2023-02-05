@@ -283,7 +283,7 @@ $: set_uistates_divertmode($status_store.divertmode)
 				action={() => setShaper(!$uistates_store.shaper)} disabled={waiting} />
 		</div>
 		<Borders grow>
-			<div class="mb-3" style="width: 280px">
+			<div class="mb-3" style="width: 260px">
 				<Slider 
 					icon="fa6-solid:gauge-high" 
 					tooltip={$_("charge-rate-ttip")} 

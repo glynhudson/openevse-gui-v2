@@ -43,7 +43,7 @@
 		<iconify-icon class="mt-4 mr-3" icon={icon} style="font-size: 25px"></iconify-icon>
 
 		{/if}
-		<div class="is-flex-grow-1 is-flex-shrink-0" on:mouseenter={togglecolor} on:mouseleave={togglecolor} >			
+		<div class="is-flex-grow-1 is-flex-shrink-1" on:mouseenter={togglecolor} on:mouseleave={togglecolor} >			
 			<input class="slider is-fullwidth is-medium has-tooltip-arrow {hover||focus?'is-info':''}" 
 				data-tooltip={tooltip==""?null:tooltip} 
 				step={step?step:1} 

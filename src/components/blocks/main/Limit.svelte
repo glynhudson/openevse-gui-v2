@@ -119,7 +119,7 @@
 </script>
 <style>
 	.content {
-		width: 280px;
+		width: 260px;
 		height: fit-content;
 	}
 	.modal-content {
