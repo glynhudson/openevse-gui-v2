@@ -122,7 +122,7 @@
 		"input-energy": "Nb of kWh",
 		"input-soc": "Battery",
 		"input-range": "Range",
-		"left": "left",
+		"left": "Left",
 		"type": {
 			"none": "None",
 			"time": "Time",

@@ -5,6 +5,7 @@
 	export let type
 	export let types = {}
 	export let value
+	export let left
 	export let unit
 	export let auto_release = true
 	export let onClick = () => {}
@@ -54,7 +55,7 @@
 			<span class="ml-2">{types[type].name}</span>		
 	</div>
 	<span class="tag is-medium val has-text-weight-bold is-info">
-		{displayValue(value)}{unit} {$_("limits.left")}
+		{displayValue(value)}{unit}
 	</span>
 	{#if auto_release}
 		{#if state == ""}
@@ -73,4 +74,7 @@
 			<iconify-icon inline icon={"material-symbols:lock"} height={18}></iconify-icon>
 		</span>
 	{/if}
+	<div class="has-text-info has-text-weight-bold">
+		{$_("limits.left")}: {displayValue(left)}{unit} 
+	</div>
 </div>

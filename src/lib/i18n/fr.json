@@ -121,7 +121,7 @@
 		"input-energy": "Nb de kWh",
     "input-soc": "Batterie",
 		"input-range": "Autonomie",
-    "left": "restant",
+    "left": "Restant",
     "type": {
 			"none": "Aucune",
 			"time": "Temps",

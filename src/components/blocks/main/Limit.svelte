@@ -174,7 +174,8 @@
 				<LimitTag 
 					type={$limit_store.type} 
 					types={LimitTypes}
-					value={countdownValue($limit_store.value, $limit_store.type)} 
+					value={$limit_store.value}
+					left={countdownValue($limit_store.value, $limit_store.type)} 
 					unit={LimitTypes[$limit_store.type].unit}
 					icon={LimitTypes[$limit_store.type].icon}
 					onClick={removeLimit}
